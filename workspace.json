@@ -1,7 +1,15 @@
 {
   "version": 2,
   "projects": {
+    "api": "libs/api",
+    "backend": "apps/backend",
+    "mob-ui": "libs/mob-ui",
     "mobile": "apps/mobile",
-    "mobile-e2e": "apps/mobile-e2e"
+    "mobile-e2e": "apps/mobile-e2e",
+    "store": "libs/store",
+    "types": "libs/types",
+    "web": "apps/web",
+    "web-e2e": "apps/web-e2e",
+    "web-ui": "libs/web-ui"
   }
 }

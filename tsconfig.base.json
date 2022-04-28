@@ -14,7 +14,13 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@nx-demo/api": ["libs/api/src/index.ts"],
+      "@nx-demo/mob-ui": ["libs/mob-ui/src/index.ts"],
+      "@nx-demo/store": ["libs/store/src/index.ts"],
+      "@nx-demo/types": ["libs/types/src/index.ts"],
+      "@nx-demo/web-ui": ["libs/web-ui/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
