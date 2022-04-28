@@ -9,6 +9,9 @@
     "react-native": "*",
     "react-native-config": "*",
     "react-native-svg": "*",
-    "@react-native-async-storage/async-storage": "*"
+    "@react-native-async-storage/async-storage": "*",
+    "effector-react": "*",
+    "effector": "*",
+    "axios": "*"
   }
 }

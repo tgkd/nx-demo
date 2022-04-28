@@ -36,10 +36,14 @@ func (base *Controller) GetPosts(c *gin.Context) {
 		c.AbortWithStatus(404)
 	}
 
+	var paging model.Paging
+
+	paging.FilteredData = filteredData
+	paging.TotalData = totalData
+
 	data := model.Data{
-		TotalData:    totalData,
-		FilteredData: filteredData,
-		Data:         posts,
+		Paging: paging,
+		Data:   posts,
 	}
 
 	c.JSON(200, data)

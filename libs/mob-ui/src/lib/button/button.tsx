@@ -1,15 +1,16 @@
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
+import { View, TouchableWithoutFeedback, ViewStyle } from 'react-native';
 
-import { View, Text } from 'react-native';
+export interface ButtonProps {
+  onPress: () => void;
+  style?: ViewStyle | ViewStyle[];
+}
 
-/* eslint-disable-next-line */
-export interface ButtonProps {}
-
-export function Button(props: ButtonProps) {
+export function Button(props: PropsWithChildren<ButtonProps>) {
   return (
-    <View>
-      <Text>Welcome to button!</Text>
-    </View>
+    <TouchableWithoutFeedback onPress={props.onPress}>
+      <View style={props.style}>{props.children}</View>
+    </TouchableWithoutFeedback>
   );
 }
 

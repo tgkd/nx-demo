@@ -4,10 +4,14 @@ import (
 	"gorm.io/gorm"
 )
 
+type Paging struct {
+	TotalData    int64 `json:"totalData"`
+	FilteredData int64 `json:"filteredData"`
+}
+
 type Data struct {
-	TotalData    int64  `json:"totalData"`
-	FilteredData int64  `json:"filteredData"`
-	Data         []Post `json:"data"`
+	Paging Paging `json:"paging"`
+	Data   []Post `json:"data"`
 }
 
 type Args struct {

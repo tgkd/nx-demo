@@ -37,19 +37,13 @@ func GetPosts(c *gin.Context, db *gorm.DB, args model.Args) ([]model.Post, int64
 		return posts, filteredData, totalData, err
 	}
 
-	// // Count filtered table
-	// // We are resetting offset to 0 to return total number.
-	// // This is a fix for Gorm offset issue
 	query = query.Offset(0)
 	query.Table(table).Count(&filteredData)
-
-	// // Count total table
 	db.Table(table).Count(&totalData)
 
 	return posts, filteredData, totalData, nil
 }
 
-// SavePost both cretes and updates post according to if ID field is empty or not
 func SavePost(db *gorm.DB, post *model.Post) (*model.Post, error) {
 	if err := db.Save(&post).Error; err != nil {
 		log.Log.Error("SavePost error: %v", zap.Error(err))
@@ -59,7 +53,6 @@ func SavePost(db *gorm.DB, post *model.Post) (*model.Post, error) {
 	return post, nil
 }
 
-// DeletePost soft deletes all records.
 func DeletePost(db *gorm.DB, id string) error {
 	post := new(model.Post)
 	if err := db.Where("id = ? ", id).Delete(&post).Error; err != nil {

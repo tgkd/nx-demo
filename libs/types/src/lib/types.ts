@@ -1,16 +1,28 @@
 export interface RequestParams {
-  groupBy?: 'name' | 'id';
-  name?: string;
+  sort?: 'ID' | 'name';
+  order?: 'DESC' | 'ASC';
+  offset?: number;
+  limit?: number;
+  search?: string;
 }
 
-export interface ListItem {
-  id: string;
+export interface ListItemTag {
+  ID: number;
+  PostID: number;
   name: string;
+  description: string;
+}
+export interface ListItem {
+  ID: number;
+  CreatedAt: string;
+  UpdatedAt: string;
+  DeletedAt?: string | null;
+  name: string;
+  description: string;
+  tags: ListItemTag[];
 }
 
 export interface Paging {
-  page: number;
-  totalPages: number;
-  nextPage?: number;
-  prevPage?: number;
+  total: number;
+  filtered: number;
 }

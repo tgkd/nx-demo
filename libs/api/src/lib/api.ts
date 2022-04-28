@@ -7,11 +7,11 @@ import { Api } from './instance';
 type ListResponse = Promise<
   AxiosResponse<{
     error?: string;
-    payload: ListItem[];
+    data: ListItem[];
     paging: Paging;
   }>
 >;
 
 export async function getList(params: RequestParams): ListResponse {
-  return Api.get('/list', { params });
+  return Api.get('/posts', { params });
 }

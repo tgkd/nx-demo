@@ -11,7 +11,13 @@ import {
 import { RequestParams, ListItem, Paging } from '@nx-demo/types';
 import { getList } from '@nx-demo/api';
 
-type Query = Pick<RequestParams, 'groupBy' | 'name'>;
+type Query = Omit<RequestParams, 'limit' | 'offset'>;
+
+interface StorePaging {
+  page: number;
+  total: number;
+  limit: number;
+}
 
 export const fetchListFx = createEffect({
   async handler(requestParams: RequestParams) {
@@ -21,24 +27,24 @@ export const fetchListFx = createEffect({
       throw new Error(res.data.error);
     }
 
-    const { paging, payload } = res.data;
+    const { paging, data } = res.data;
 
-    return { paging, payload };
+    return { paging, data };
   },
 });
 
 /* paging */
-export const pagingChanged = createEvent<Paging>();
+export const pagingChanged = createEvent<StorePaging>();
 export const resetPaging = createEvent();
+const updatePaging = createEvent<Paging>();
 
-const updatePaging = createEvent<Paging | undefined>();
-
-export const $paging = createStore<Paging>({
-  page: 1,
-  totalPages: 0,
+export const $paging = createStore<StorePaging>({
+  page: 0,
+  total: 0,
+  limit: 3,
 })
   .on(pagingChanged, (_, paging) => paging)
-  .on(updatePaging, (state, paging) => paging ?? state)
+  .on(updatePaging, (state, { total }) => ({ ...state, total }))
   .reset(resetPaging);
 
 /* query */
@@ -64,9 +70,10 @@ sample({
 const searchWithQueryFx = attach({
   effect: fetchListFx,
   source: $listFilter,
-  mapParams: (query: Query, filters) => ({
-    page: filters.paging.page,
+  mapParams: (query: Query, { paging }) => ({
     ...query,
+    limit: paging.limit,
+    offset: paging.limit * paging.page,
   }),
 });
 
@@ -79,9 +86,10 @@ sample({
 const searchWithPageFx = attach({
   effect: fetchListFx,
   source: $listFilter,
-  mapParams: (paging: Paging, filters) => ({
-    page: paging.page,
+  mapParams: (paging: StorePaging, filters) => ({
     ...filters.query,
+    limit: paging.limit,
+    offset: paging.limit * paging.page,
   }),
 });
 
@@ -106,9 +114,7 @@ forward({
 
 export const $list = createStore<ListItem[]>([])
   .on(fetchListFx.done, (state, { result }) => {
-    return Array.isArray(result.payload)
-      ? [...state, ...result.payload]
-      : state;
+    return Array.isArray(result.data) ? [...state, ...result.data] : state;
   })
   .reset([resetListStore]);
 
