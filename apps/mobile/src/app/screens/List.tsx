@@ -1,11 +1,10 @@
 import React, { useEffect } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import { useStore } from 'effector-react';
 
 import { $list, $paging, pagingChanged } from '@nx-demo/store';
-import { Button } from '@nx-demo/mob-ui';
 
-export default function App() {
+export function ListScreen() {
   const list = useStore($list);
   const paging = useStore($paging);
 
@@ -24,9 +23,9 @@ export default function App() {
           {p.name}
         </Text>
       ))}
-      <Button style={styles.btn} onPress={loadMore}>
+      <TouchableOpacity style={styles.btn} onPress={loadMore}>
         <Text>{'load'}</Text>
-      </Button>
+      </TouchableOpacity>
     </View>
   );
 }

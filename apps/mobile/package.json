@@ -12,6 +12,8 @@
     "@react-native-async-storage/async-storage": "*",
     "effector-react": "*",
     "effector": "*",
-    "axios": "*"
+    "axios": "*",
+    "react-native-reanimated": "*",
+    "react-native-navigation": "*"
   }
 }
