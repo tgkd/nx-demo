@@ -22,6 +22,10 @@ export interface ListItem {
   tags: ListItemTag[];
 }
 
+export interface User {
+  id: string;
+}
+
 export interface Paging {
   total: number;
   filtered: number;

@@ -41,10 +41,13 @@ const updatePaging = createEvent<Paging>();
 export const $paging = createStore<StorePaging>({
   page: 0,
   total: 0,
-  limit: 3,
+  limit: 20,
 })
   .on(pagingChanged, (_, paging) => paging)
-  .on(updatePaging, (state, { total }) => ({ ...state, total }))
+  .on(updatePaging, (state, { total }) => ({
+    ...state,
+    total: total ?? state.total,
+  }))
   .reset(resetPaging);
 
 /* query */

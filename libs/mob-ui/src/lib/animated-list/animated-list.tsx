@@ -4,6 +4,6 @@ import Animated from 'react-native-reanimated';
 
 const ReanimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
-export const AnimatedFlatList = forwardRef<FlatList, FlatListProps<unknown>>(
+export const AnimatedFlatList = forwardRef<FlatList, FlatListProps<any>>(
   (props, ref) => <ReanimatedFlatList ref={ref} {...props} />
 );

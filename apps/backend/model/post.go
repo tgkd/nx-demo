@@ -5,8 +5,8 @@ import (
 )
 
 type Paging struct {
-	TotalData    int64 `json:"totalData"`
-	FilteredData int64 `json:"filteredData"`
+	TotalData    int64 `json:"total"`
+	FilteredData int64 `json:"filtered"`
 }
 
 type Data struct {
