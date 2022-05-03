@@ -11,12 +11,12 @@ import { AnimatedFlatList } from '@nx-demo/mob-ui';
 
 import { PostListItem } from '../components/PostListItem';
 import { ListHeader } from '../components/PostListHeader';
+import { colors } from '../theme';
 
 export function ListScreen() {
   const list = useStore($list);
   const paging = useStore($paging);
   const translationY = useSharedValue(0);
-  const headerHeight = useSharedValue(0);
   const isScrolling = useSharedValue(false);
 
   useEffect(() => {
@@ -35,10 +35,6 @@ export function ListScreen() {
     },
   });
 
-  const onHeaderLayout = (e: LayoutChangeEvent) => {
-    headerHeight.value = e.nativeEvent.layout.height;
-  };
-
   const loadMore = () => {
     if (list.length < paging.total) {
       pagingChanged({ ...paging, page: paging.page + 1 });
@@ -47,14 +43,9 @@ export function ListScreen() {
 
   return (
     <View style={styles.container}>
-      <ListHeader
-        onLayout={onHeaderLayout}
-        scrollPosition={translationY}
-        height={headerHeight}
-        isScrolling={isScrolling}
-      />
+      <ListHeader scrollPosition={translationY} isScrolling={isScrolling} />
       <AnimatedFlatList
-        contentContainerStyle={{ paddingBottom: headerHeight.value }}
+        contentContainerStyle={styles.listContent}
         data={list}
         renderItem={PostListItem}
         onEndReached={loadMore}
@@ -71,8 +62,11 @@ export function ListScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#ddd',
+    backgroundColor: colors.Background,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  listContent: {
+    paddingTop: 16,
   },
 });
