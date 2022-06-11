@@ -11,5 +11,6 @@
     "web": "apps/web",
     "web-e2e": "apps/web-e2e",
     "web-ui": "libs/web-ui"
-  }
+  },
+  "$schema": "./node_modules/nx/schemas/workspace-schema.json"
 }

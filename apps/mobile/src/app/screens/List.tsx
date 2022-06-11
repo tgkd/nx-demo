@@ -1,16 +1,17 @@
-import React, { useEffect } from 'react';
-import { LayoutChangeEvent, StyleSheet, View } from 'react-native';
 import { useStore } from 'effector-react';
+import React, { useEffect } from 'react';
+import { StyleSheet, View } from 'react-native';
 import {
   useAnimatedScrollHandler,
   useSharedValue,
 } from 'react-native-reanimated';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { $list, $paging, pagingChanged } from '@nx-demo/store';
 import { AnimatedFlatList } from '@nx-demo/mob-ui';
+import { $list, $paging, pagingChanged } from '@nx-demo/store';
 
-import { PostListItem } from '../components/PostListItem';
 import { ListHeader } from '../components/PostListHeader';
+import { PostListItem } from '../components/PostListItem';
 import { colors } from '../theme';
 
 export function ListScreen() {
@@ -42,7 +43,7 @@ export function ListScreen() {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <ListHeader scrollPosition={translationY} isScrolling={isScrolling} />
       <AnimatedFlatList
         contentContainerStyle={styles.listContent}
@@ -55,7 +56,7 @@ export function ListScreen() {
         scrollEventThrottle={30}
         maxToRenderPerBatch={10}
       />
-    </View>
+    </SafeAreaView>
   );
 }
 

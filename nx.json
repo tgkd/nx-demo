@@ -3,9 +3,6 @@
   "affected": {
     "defaultBase": "main"
   },
-  "cli": {
-    "defaultCollection": "@nrwl/react-native"
-  },
   "implicitDependencies": {
     "package.json": {
       "dependencies": "*",
@@ -46,5 +43,6 @@
         "linter": "eslint"
       }
     }
-  }
+  },
+  "$schema": "./node_modules/nx/schemas/nx-schema.json"
 }
