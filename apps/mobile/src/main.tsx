@@ -3,14 +3,14 @@ import { Navigation } from 'react-native-navigation';
 
 import { ListScreen, SplashScreen } from './app/screens';
 import { routes } from './app/routes';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 function withSafeArea(Component) {
   return function WrapperComponent(props) {
     return (
-      <SafeAreaView>
+      <SafeAreaProvider>
         <Component {...props} />
-      </SafeAreaView>
+      </SafeAreaProvider>
     );
   };
 }

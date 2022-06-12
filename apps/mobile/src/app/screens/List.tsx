@@ -5,7 +5,6 @@ import {
   useAnimatedScrollHandler,
   useSharedValue,
 } from 'react-native-reanimated';
-import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { AnimatedFlatList } from '@nx-demo/mob-ui';
 import { $list, $paging, pagingChanged } from '@nx-demo/store';
@@ -43,7 +42,7 @@ export function ListScreen() {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <ListHeader scrollPosition={translationY} isScrolling={isScrolling} />
       <AnimatedFlatList
         contentContainerStyle={styles.listContent}
@@ -56,16 +55,14 @@ export function ListScreen() {
         scrollEventThrottle={30}
         maxToRenderPerBatch={10}
       />
-    </SafeAreaView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.Background,
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: colors.background,
   },
   listContent: {
     paddingTop: 16,

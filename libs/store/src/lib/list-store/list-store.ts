@@ -22,6 +22,7 @@ interface StorePaging {
 export const fetchListFx = createEffect({
   async handler(requestParams: RequestParams) {
     const res = await getList(requestParams);
+    console.log('>>>', res.data.data)
 
     if (res.data.error) {
       throw new Error(res.data.error);

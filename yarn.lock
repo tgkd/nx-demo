@@ -2105,7 +2105,7 @@
     tmp "~0.2.1"
     tslib "^2.3.0"
 
-"@nrwl/react-native@14.2.4":
+"@nrwl/react-native@^14.2.4":
   version "14.2.4"
   resolved "https://registry.yarnpkg.com/@nrwl/react-native/-/react-native-14.2.4.tgz#099993d36bc4adece26441bdb9ed0445084c1e8d"
   integrity sha512-WCJ1z4FSNAx8bxWNm2sdfoJ2Mz5XtmGopPbaIOLg12tb/qyfdGqEns1FVAsSStzEWetF7Q/wJsax/aIqv8PSIg==

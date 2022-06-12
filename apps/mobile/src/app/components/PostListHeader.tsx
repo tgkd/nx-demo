@@ -1,10 +1,6 @@
 import { Button } from '@nx-demo/mob-ui';
 import React from 'react';
-import {
-  Dimensions,
-  StyleSheet,
-  View
-} from 'react-native';
+import { Dimensions, StyleSheet, View } from 'react-native';
 import Animated, {
   interpolate,
   SharedValue,
@@ -12,8 +8,9 @@ import Animated, {
   useAnimatedStyle,
   useDerivedValue,
   useSharedValue,
-  withTiming
+  withTiming,
 } from 'react-native-reanimated';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 import BlogIcon from '../icons/blog.svg';
 import UserIcon from '../icons/user.svg';
@@ -25,21 +22,22 @@ const LOREM =
 const { width } = Dimensions.get('window');
 const AVATAR_SIZE = 56;
 const PADDING = 12;
+const PADDING_MAX = 24;
 const HEIGHT_MIN = 68;
 const HEIGHT_MAX = 126;
-const AVATAR_START = HEIGHT_MAX - AVATAR_SIZE - PADDING;
+const AVATAR_START = HEIGHT_MAX - AVATAR_SIZE;
 const AVATAR_END = -PADDING;
-const PADDING_MIN = 24;
-const PADDING_MAX = 44;
 
 const styles = StyleSheet.create({
+  safeAreaView: {
+    backgroundColor: colors['blue-grey-900'],
+  },
   container: {
     flexDirection: 'row',
     paddingHorizontal: PADDING,
     paddingBottom: PADDING,
     width,
     zIndex: 100,
-    backgroundColor: colors['blue-grey-900'],
   },
   avatarContainer: {
     justifyContent: 'center',
@@ -71,7 +69,7 @@ const styles = StyleSheet.create({
   popupBtn: {
     position: 'absolute',
     right: PADDING,
-    top: 24,
+    top: 0,
     height: 24,
     width: 24,
     borderRadius: 12,
@@ -110,7 +108,11 @@ export function ListHeader({ scrollPosition }: Props) {
   const containerStyle = useAnimatedStyle(
     () => ({
       height: interpolate(progress.value, [0, 1], [HEIGHT_MIN, HEIGHT_MAX]),
-      paddingTop: interpolate(progress.value, [0, 1], [PADDING_MIN, PADDING_MAX]),
+      paddingTop: interpolate(
+        progress.value,
+        [0, 1],
+        [PADDING, PADDING_MAX]
+      ),
     }),
     [progress]
   );
@@ -157,22 +159,24 @@ export function ListHeader({ scrollPosition }: Props) {
   );
 
   return (
-    <Animated.View style={[containerStyle, styles.container]}>
-      <Animated.View style={[avatarStyle, styles.avatarContainer]}>
-        <UserIcon style={styles.avatar} />
-      </Animated.View>
-      <View style={styles.info}>
-        <Animated.Text style={[titleStyle, styles.username]}>
-          {'New User'}
-        </Animated.Text>
+    <SafeAreaView style={styles.safeAreaView} edges={['top']}>
+      <Animated.View style={[containerStyle, styles.container]}>
+        <Animated.View style={[avatarStyle, styles.avatarContainer]}>
+          <UserIcon style={styles.avatar} />
+        </Animated.View>
+        <View style={styles.info}>
+          <Animated.Text style={[titleStyle, styles.username]}>
+            {'New User'}
+          </Animated.Text>
 
-        <Animated.Text numberOfLines={3} style={[descStyle, styles.desc]}>
-          {LOREM}
-        </Animated.Text>
-      </View>
-      <Button style={styles.popupBtn} onPress={showPopup}>
-        <BlogIcon />
-      </Button>
-    </Animated.View>
+          <Animated.Text numberOfLines={3} style={[descStyle, styles.desc]}>
+            {LOREM}
+          </Animated.Text>
+        </View>
+        <Button style={styles.popupBtn} onPress={showPopup}>
+          <BlogIcon />
+        </Button>
+      </Animated.View>
+    </SafeAreaView>
   );
 }

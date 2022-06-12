@@ -14,6 +14,7 @@
     "effector": "*",
     "axios": "*",
     "react-native-reanimated": "*",
-    "react-native-navigation": "*"
+    "react-native-navigation": "*",
+    "react-native-safe-area-context": "*"
   }
 }
